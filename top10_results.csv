@@ -1,0 +1,11 @@
+job_title,skills,match_score,missing_skills
+AI Engineer,"Deep Learning, CSS, React, AWS, NLP, Data Analysis, TensorFlow, Problem Solving, Communication",67.13,"['Deep Learning', 'CSS', 'React', 'AWS', 'Problem Solving', 'Communication']"
+Software Engineer,"Problem Solving, Cloud, Docker, NLP, Statistics, CSS, TensorFlow, Deep Learning, Java",65.97,"['Problem Solving', 'Cloud', 'Docker', 'Statistics', 'CSS', 'Deep Learning', 'Java']"
+Machine Learning Engineer,"CSS, React, Statistics, NLP, Kubernetes, Deep Learning, Azure",64.7,"['CSS', 'React', 'Statistics', 'Kubernetes', 'Deep Learning', 'Azure']"
+NLP Engineer,"Communication, Problem Solving, Docker, Flask, Azure, TensorFlow, Statistics, Python",58.07,"['Communication', 'Problem Solving', 'Docker', 'Flask', 'Azure', 'Statistics']"
+Data Scientist,"Docker, Cloud, React, Python, SQL, NLP, Data Analysis, TensorFlow, Communication",57.35,"['Docker', 'Cloud', 'React', 'SQL', 'Communication']"
+Data Analyst,"SQL, CSS, Communication, Java, Deep Learning, Docker, Data Analysis, Kubernetes, TensorFlow",56.13,"['SQL', 'CSS', 'Communication', 'Java', 'Deep Learning', 'Docker', 'Kubernetes']"
+Web Developer,"Python, Leadership, Kubernetes, Communication, TensorFlow, Problem Solving",56.01,"['Leadership', 'Kubernetes', 'Communication', 'Problem Solving']"
+HR Recruiter,"Teamwork, Leadership, HTML, Python, Communication, SQL",55.3,"['Teamwork', 'Leadership', 'HTML', 'Communication', 'SQL']"
+Cloud Engineer,"Flask, React, Communication, Cloud, Data Analysis, NLP",54.94,"['Flask', 'React', 'Communication', 'Cloud']"
+Python Developer,"Docker, NLP, Teamwork, TensorFlow, Azure",54.93,"['Docker', 'Teamwork', 'Azure']"

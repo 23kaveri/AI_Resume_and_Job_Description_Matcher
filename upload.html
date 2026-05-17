@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume vs Job Description Comparison</title>
+</head>
+<body>
+  <h2>Upload Resume and Job Description PDFs</h2>
+
+  <form id="compareForm">
+    <label>Upload Resume:</label><br>
+    <input type="file" id="resume" name="resume" accept=".pdf" required><br><br>
+
+    <label>Upload Job Description:</label><br>
+    <input type="file" id="jobs" name="jobs" accept=".pdf" required><br><br>
+
+    <button type="submit">Compare</button>
+  </form>
+
+  <h3>Result:</h3>
+  <pre id="result"></pre>
+
+  <script src="static/script.js"></script>
+</body>
+</html>

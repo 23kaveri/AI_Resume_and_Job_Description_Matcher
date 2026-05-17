@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Market Insights — AI Matcher</title>
+  <link rel="stylesheet" href="/static/dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-shell">
+  <div class="app-grid">
+    <aside class="sidenav">
+      <div class="nav-brand"><div class="logo">AI</div><div><div class="brand-title">AI Matcher</div><div class="brand-sub">Resume — Job Insight</div></div></div>
+      <nav class="nav-links">
+        <a href="/" class="nav-item">Dashboard</a>
+        <a href="/profile" class="nav-item">Profile</a>
+        <a href="/reports" class="nav-item">Job Reports</a>
+        <a href="/resume-enhancer" class="nav-item">Resume Enhancer</a>
+        <a href="/market-insights" class="nav-item active">Market Insights</a>
+        <a href="/settings" class="nav-item">Settings</a>
+        <a href="/help" class="nav-item">Help Center</a>
+        <a href="#" id="logoutBtn" class="nav-item logout">Logout</a>
+      </nav>
+      <div class="nav-footer"><small class="muted">Logged in as</small><div id="navUser" class="nav-user">guest</div></div>
+    </aside>
+
+    <main class="main-col">
+      <div class="padded">
+        <h1>Market Insights</h1>
+        <p class="muted">Quick view of popular skills and trend indicators (demo data).</p>
+
+        <div class="summary-card" style="margin-top:12px;">
+          <canvas id="insightChart" style="height:240px;"></canvas>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('navUser').textContent = localStorage.getItem('ai_matcher_user') || 'guest';
+    document.getElementById('logoutBtn').addEventListener('click', ()=> { localStorage.removeItem('ai_matcher_user'); window.location.href='/login'; });
+
+    // Demo chart data
+    const labels = ['Python','Cloud','ML','Docker','NLP','React'];
+    const data = [85,65,78,40,50,30];
+
+    const ctx = document.getElementById('insightChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: { labels, datasets: [{ label: 'Demand (demo)', data, backgroundColor: 'rgba(78,84,200,0.85)', borderRadius:8 }] },
+      options: { responsive:true, maintainAspectRatio:false, scales:{ y:{ beginAtZero:true, ticks:{ color:'#d9d9ff' } }, x:{ ticks:{ color:'#d9d9ff' } } } }
+    });
+  </script>
+  <script>
+    const savedTheme = localStorage.getItem("ai_theme");
+    if (savedTheme === "light") {
+        document.documentElement.classList.add("light-mode");
+    }
+</script>
+
+</body>
+</html>

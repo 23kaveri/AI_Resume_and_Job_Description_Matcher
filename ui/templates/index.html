@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume ↔ Job Matching</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+
+        <div class="glass-card upload-section fade-in">
+            <h2 class="title">Resume ↔ Job Matching System</h2>
+            <p class="subtitle">Upload your Resume & Job Description (PDF)</p>
+
+            <form id="uploadForm">
+
+                <div class="input-group">
+                    <label>Resume PDF</label>
+                    <input id="resume" type="file" name="resume" accept="application/pdf" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Job Description PDF (Multiple Jobs Allowed)</label>
+                    <input id="job_pdf" type="file" name="job_pdf" accept="application/pdf" required>
+                </div>
+
+                <button class="upload-btn" type="submit">Compare Now</button>
+
+            </form>
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" class="loading-box hidden">
+            <div class="spinner"></div>
+            <p>Analyzing your documents… Please wait</p>
+        </div>
+
+        <!-- Results Section -->
+        <div id="result" class="hidden">
+
+            <div class="glass-card fade-in">
+                <h3 class="section-title">Match Summary</h3>
+                <p id="summary" class="summary-text"></p>
+            </div>
+
+            <div class="glass-card fade-in">
+                <h3 class="section-title">All Job Results</h3>
+
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Match %</th>
+                            <th>Matching Skills</th>
+                            <th>Missing Skills</th>
+                            <th>Company</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="glass-card fade-in">
+                <h3 class="section-title">Match Score Distribution</h3>
+                <canvas id="matchChart"></canvas>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/script.js"></script>
+
+</body>
+</html>

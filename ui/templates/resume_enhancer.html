@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Enhancer</title>
+    <link rel="stylesheet" href="/static/dashboard.css">
+
+<style>
+#resultBox{
+    background:#0d1b36;
+    padding:18px;
+    border-radius:8px;
+    margin-top:15px;
+    display:none;
+    color:#d7eaff;
+    line-height:1.6;
+}
+.title-head{
+    font-size:20px;
+    font-weight:700;
+    margin-bottom:8px;
+    color:#6bc4ff;
+}
+.list-item{margin-bottom:4px;}
+
+#summaryBox{
+    background:#041126;
+    padding:15px;
+    border-radius:8px;
+    color:#9ee3ff;
+    font-size:15px;
+    margin-top:18px;
+    white-space:pre-line;
+    display:none;
+}
+</style>
+</head>
+
+<body class="bg-shell">
+
+<div class="app-grid">
+
+<!------------------- SIDE NAV --------------------------->
+<aside class="sidenav">
+    <div class="nav-brand">
+        <div class="logo">AI</div>
+        <div>
+            <div class="brand-title">AI Matcher</div>
+            <div class="brand-sub">Resume — Job Insight</div>
+        </div>
+    </div>
+
+    <nav class="nav-links">
+        <a href="/" class="nav-item">Dashboard</a>
+        <a href="/profile" class="nav-item">Profile</a>
+        <a href="/reports" class="nav-item">Job Reports</a>
+        <a href="/resume-enhancer" class="nav-item active">Resume Enhancer</a>
+        <a href="/market-insights" class="nav-item">Market Insights</a>
+        <a href="/settings" class="nav-item">Settings</a>
+        <a href="/help" class="nav-item">Help Center</a>
+        <a href="#" id="logoutBtn" class="nav-item logout">Logout</a>
+    </nav>
+</aside>
+
+
+<!-------------------- MAIN APP AREA --------------------->
+<main class="main-col">
+    <div class="padded">
+        <h1>Resume Enhancer</h1>
+        <p>Upload resume — AI will analyze real content, show improvements, rewrite summary.</p>
+
+        <div class="profile-card">
+
+            <form id="enhancerForm" enctype="multipart/form-data">
+                <input type="file" name="resume" accept="application/pdf" required>
+                <button type="submit" class="btn btn-primary" style="margin-top:10px;">Analyze</button>
+            </form>
+
+
+            <!-------------------- RESULT PANEL --------------------->
+            <div id="resultBox">
+                <div class="title-head">Resume Analysis Results</div>
+
+                <strong>Skills Detected:</strong>
+                <ul id="foundList"></ul>
+
+                <strong>Missing Skills:</strong>
+                <ul id="missingList"></ul>
+
+                <strong>Suggestions:</strong>
+                <ul id="suggestList"></ul>
+            </div>
+
+
+            <!---------------- AI REWRITTEN SUMMARY BLOCK ------------>
+            <h3 style="margin-top:20px;color:#69b3ff;display:none;" id="summaryTitle">🔹 AI Rewritten Resume Summary</h3>
+            <div id="summaryBox"></div>
+
+        </div>
+    </div>
+</main>
+</div>
+
+
+<!------------------ JS ENGINE -------------------------->
+<script>
+document.getElementById("enhancerForm").addEventListener("submit", async (e)=>{
+    e.preventDefault();
+
+    let form = new FormData();
+    form.append("resume", document.querySelector("input[name=resume]").files[0]);
+
+    const res = await fetch("/enhance-resume", { method:"POST", body:form });
+    const data = await res.json();
+
+    document.getElementById("resultBox").style.display="block";
+
+    setList("foundList", data.skills_found);
+    setList("missingList", data.skills_missing);
+    setList("suggestList", data.suggestions);
+
+    // 🔥 SHOW AI REWRITE SUMMARY
+    if(data.rewrite){
+        document.getElementById("summaryTitle").style.display="block";
+        document.getElementById("summaryBox").style.display="block";
+        document.getElementById("summaryBox").innerText = data.rewrite;
+    }
+});
+
+function setList(id, items){
+    const box = document.getElementById(id);
+    box.innerHTML = "";
+    items.forEach(i=> box.innerHTML += `<li class='list-item'>${i}</li>`);
+}
+</script>
+
+</body>
+</html>

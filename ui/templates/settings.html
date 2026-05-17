@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Settings — AI Matcher</title>
+  <link rel="stylesheet" href="/static/dashboard.css">
+</head>
+
+<body class="bg-shell">
+  <div class="app-grid">
+
+    <!-- SIDE NAV -->
+    <aside class="sidenav">
+      <div class="nav-brand">
+        <div class="logo">AI</div>
+        <div>
+          <div class="brand-title">AI Matcher</div>
+          <div class="brand-sub">Resume — Job Insight</div>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="/" class="nav-item">Dashboard</a>
+        <a href="/profile" class="nav-item">Profile</a>
+        <a href="/reports" class="nav-item">Job Reports</a>
+        <a href="/resume-enhancer" class="nav-item">Resume Enhancer</a>
+        <a href="/market-insights" class="nav-item">Market Insights</a>
+        <a href="/settings" class="nav-item active">Settings</a>
+        <a href="/help" class="nav-item">Help Center</a>
+        <a href="#" id="logoutBtn" class="nav-item logout">Logout</a>
+      </nav>
+
+      <div class="nav-footer">
+        <small class="muted">Logged in as</small>
+        <div id="navUser" class="nav-user">guest</div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-col">
+      <div class="padded">
+        <h1>Settings</h1>
+
+        <!-- THEME SETTINGS CARD -->
+        <div class="summary-card" style="margin-top: 20px;">
+          <h3 style="margin-bottom: 12px;">Theme</h3>
+
+          <label class="theme-row">
+            <span style="font-size: 1rem;">Enable Light Mode</span>
+            <label class="toggle">
+              <input type="checkbox" id="themeToggle">
+              <span class="slider"></span>
+            </label>
+          </label>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <style>
+    /* Toggle switch styling */
+    .theme-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1rem;
+      margin-top: 8px;
+    }
+
+    .toggle {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 22px;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      background-color: #555;
+      border-radius: 34px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transition: .3s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 2px;
+      background-color: #fff;
+      border-radius: 50%;
+      transition: .3s;
+    }
+
+    input:checked + .slider {
+      background-color: #00c8ff;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+  </style>
+
+  <script>
+    // Show logged in user
+    document.getElementById("navUser").textContent =
+      localStorage.getItem("ai_matcher_user") || "guest";
+
+    // Logout handler
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("ai_matcher_user");
+      window.location.href = "/login";
+    });
+
+    // Load saved theme
+    const isLight = localStorage.getItem("ai_theme") === "light";
+    const toggle = document.getElementById("themeToggle");
+    toggle.checked = isLight;
+
+    applyTheme(isLight ? "light" : "dark");
+
+    // Toggle listener
+    toggle.addEventListener("change", () => {
+      const mode = toggle.checked ? "light" : "dark";
+      localStorage.setItem("ai_theme", mode);
+      applyTheme(mode);
+    });
+
+    // GLOBAL THEME FUNCTION
+    function applyTheme(mode) {
+      if (mode === "light") {
+        document.documentElement.classList.add("light-mode");
+      } else {
+        document.documentElement.classList.remove("light-mode");
+      }
+    }
+  </script>
+
+</body>
+</html>

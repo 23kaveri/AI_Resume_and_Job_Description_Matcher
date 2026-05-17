@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Match History</title>
+    <link rel="stylesheet" href="/static/dashboard.css">
+
+    <style>
+        .search-box{
+            width:50%;
+            padding:10px;
+            border-radius:8px;
+            outline:none;
+            border:1px solid #2b4d7a;
+            background:#0b1a33;
+            color:#d7eaff;
+            font-size:15px;
+            margin-bottom:15px;
+        }
+        table{width:100%; border-collapse:collapse;}
+        th,td{padding:10px;color:white;}
+        th{background:#142850;color:#74b9ff;}
+        tr:nth-child(even){background:#0e1a32;}
+        tr:nth-child(odd){background:#0a1528;}
+        .btn-clear{
+            background:#ff3b3b;
+            color:white;
+            padding:8px 14px;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            margin-left:10px;
+        }
+    </style>
+</head>
+
+<body class="bg-shell">
+<div class="app-grid">
+
+    <!-- LEFT MENU SAME AS SETTINGS UI -->
+    <aside class="sidenav">
+      <div class="nav-brand">
+        <div class="logo">AI</div>
+        <div><div class="brand-title">AI Matcher</div>
+        <div class="brand-sub">Resume — Job Insight</div></div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="/" class="nav-item">Dashboard</a>
+        <a href="/profile" class="nav-item">Profile</a>
+        <a href="/reports" class="nav-item active">Job Reports</a>
+        <a href="/resume-enhancer" class="nav-item">Resume Enhancer</a>
+        <a href="/market-insights" class="nav-item">Market Insights</a>
+        <a href="/settings" class="nav-item">Settings</a>
+        <a href="/help" class="nav-item">Help Center</a>
+        <a href="/login" class="nav-item logout">Logout</a>
+      </nav>
+
+      <div class="nav-footer">
+        <small style="opacity:.6">Logged in as:</small>
+        <div id="navUser" style="font-weight:600;color:white;">
+            {{ user or 'guest' }}
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT CONTENT PANEL -->
+    <main class="main-col">
+      <div class="padded">
+
+        <h1 style="color:white;margin-bottom:8px;">📄 Match History</h1>
+        <p style="color:#9bc0ff;margin-bottom:18px;">Previous resume vs job match comparisons saved from your account</p>
+
+        <input id="searchBar" onkeyup="filterTable()" placeholder="Search Job, Resume, Skills, Company..." class="search-box">
+
+        <button class="btn-clear" onclick="clearHistory()">🗑 Clear History</button>
+
+        <table>
+        <thead>
+          <tr>
+            <th>Resume</th>
+            <th>Job Title</th>
+            <th>Company</th>
+            <th>Hiring Duration</th>
+            <th>Match %</th>
+            <th>Matched Skills</th>
+            <th>Missing Skills</th>
+            <th>Date & Time</th>
+          </tr>
+        </thead>
+
+        <tbody id="historyBody">
+        {% if history %}
+            {% for h in history %}
+            <tr>
+                <td>{{ h[0] }}</td>
+                <td>{{ h[1] }}</td>
+                <td>{{ h[2] }}</td>
+                <!-- 🔥 Hiring Duration Column Added -->
+                <td>{{ h[7] if h[7] else "Not mentioned" }}</td>
+                <td>{{ h[3] }}%</td>
+                <td style="color:#00ff7b">{{ h[4] }}</td>
+                <td style="color:#ff4b4b">{{ h[5] }}</td>
+                <td style="color:#9bb4ff">{{ h[6] }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan="7" style="text-align:center;color:#bbb">No history yet ⚠</td></tr>
+        {% endif %}
+        </tbody>
+        </table>
+
+      </div>
+    </main>
+</div>
+
+
+<!-- SEARCH FILTER -->
+<script>
+function filterTable(){
+    let input=document.getElementById("searchBar").value.toLowerCase();
+    let rows=document.querySelectorAll("#historyBody tr");
+
+    rows.forEach(r=>{
+        r.style.display=[...r.children].some(td=>td.innerText.toLowerCase().includes(input)) ? "" : "none";
+    })
+}
+</script>
+
+<!-- CLEAR HISTORY -->
+<script>
+function clearHistory(){
+    if(confirm("Delete all history? This action cannot be undone!")){
+        fetch("/clear-history",{method:"POST"}).then(()=>location.reload())
+    }
+}
+</script>
+
+</body>
+</html>

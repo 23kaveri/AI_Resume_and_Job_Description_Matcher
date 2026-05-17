@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume vs Job Matcher</title>
+  <script src="/static/script.js" defer></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 50px;
+      background: #f7f9fc;
+    }
+    h1 { color: #333; }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 400px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    pre {
+      background: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Resume vs Job Description Matcher</h1>
+
+  <form id="compareForm" action="/compare" method="POST" enctype="multipart/form-data">
+    <label>Upload Resume:</label><br>
+    <input type="file" id="resume" name="resume" accept=".pdf" required><br><br>
+
+    <label>Upload Job Description:</label><br>
+    <input type="file" id="job" name="job" accept=".pdf" required><br><br>
+
+    <button type="submit">Compare</button>
+  </form>
+
+  <pre id="result"></pre>
+</body>
+</html>

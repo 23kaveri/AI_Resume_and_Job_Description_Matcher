@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard — AI Matcher</title>
+
+  <!-- LOGIN PROTECTION -->
+  <script>
+    if (!localStorage.getItem("ai_user") || !localStorage.getItem("ai_pass")) {
+        window.location.href = "/login";
+    }
+  </script>
+
+  <link rel="stylesheet" href="/static/dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-shell">
+  <div class="app-grid">
+
+    <!-- SIDEBAR -->
+    <aside class="sidenav">
+      <div class="nav-brand">
+        <div class="logo">AI</div>
+        <div>
+          <div class="brand-title">AI Matcher</div>
+          <div class="brand-sub">Resume — Job Insight</div>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="/" class="nav-item active">Dashboard</a>
+        <a href="/profile" class="nav-item">Profile</a>
+        <a href="/reports" class="nav-item">Job Reports</a>
+        <a href="/resume-enhancer" class="nav-item">Resume Enhancer</a>
+        <a href="/market-insights" class="nav-item">Market Insights</a>
+        <a href="/settings" class="nav-item">Settings</a>
+        <a href="/help" class="nav-item">Help Center</a>
+        <a href="#" id="logoutBtn" class="nav-item logout">Logout</a>
+      </nav>
+
+      <div class="nav-footer">
+        <small class="muted">Logged in as</small>
+        <div id="navUser" class="nav-user">guest</div>
+      </div>
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main-col">
+      
+      <header class="hero">
+        <div>
+          <h1>AI-Powered Resume and Job Description Matcher 🎓</h1>
+          <p class="muted">Upload your resume & job descriptions to get instant matches and suggested missing skills.</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-label">Total Jobs Scanned</div><div id="statTotal" class="stat-value">—</div></div>
+          <div class="stat-card"><div class="stat-label">Best Match Score</div><div id="statBest" class="stat-value">—</div></div>
+          <div class="stat-card"><div class="stat-label">Average Match</div><div id="statAvg" class="stat-value">—</div></div>
+          <div class="stat-card"><div class="stat-label">Skills Matched</div><div id="statSkills" class="stat-value">—</div></div>
+        </div>
+      </header>
+
+
+      <!-- UPLOAD SECTION -->
+      <section class="content-grid">
+        <div class="summary-card">
+          <strong>Match Summary</strong>
+          <p id="topSummary" class="muted">Top match: — | Compared 0 jobs</p>
+        </div>
+
+        <div class="upload-card">
+          <form id="uploadForm" enctype="multipart/form-data">
+            <label>Resume PDF</label>
+            <input id="resumeFile" type="file" name="resume" accept="application/pdf" required />
+
+            <label>Job Description PDF (multiple jobs allowed)</label>
+            <input id="jobFile" type="file" name="job_pdf" accept="application/pdf" required />
+
+            <button type="submit" class="btn btn-primary">Compare Now</button>
+          </form>
+
+          <div id="uploadMsg" class="muted small" style="margin-top:.5rem"></div>
+        </div>
+      </section>
+
+
+      <!-- RESULTS WITH VALIDITY COLUMN -->
+      <section class="results-section">
+        <h2>All Job Results</h2>
+
+        <div id="resultsTableWrap" class="table-wrap">
+          <table id="resultsTable" class="results-table">
+            <thead>
+              <tr>
+                <th>Job Title</th>
+                <th>Match %</th>
+                <th>Matching Skills</th>
+                <th>Missing Skills</th>
+                <th>Company</th>
+                <th>Hiring Validity</th> <!-- 🔥 Added & Bound Correctly -->
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+
+      <!-- CHART -->
+      <section class="results-section" style="margin-top: 35px;">
+        <h2>Match Score Distribution</h2>
+        <div class="table-wrap" style="height: 350px;">
+          <canvas id="matchChart"></canvas>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+
+  <!-- JS -->
+  <script src="/static/dashboard.js"></script>
+
+  <script>
+      document.getElementById("navUser").textContent =
+      localStorage.getItem("ai_user") || "guest";
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("ai_user");
+        localStorage.removeItem("ai_pass");
+        window.location.href = "/login";
+      });
+  </script>
+
+  <script>
+    const savedTheme = localStorage.getItem("ai_theme");
+    if (savedTheme === "light") {
+        document.documentElement.classList.add("light-mode");
+    }
+  </script>
+
+</body>
+</html>

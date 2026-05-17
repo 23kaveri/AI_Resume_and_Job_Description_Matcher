@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — AI Matcher</title>
+
+    <link rel="stylesheet" href="/static/dashboard.css">
+
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #081121;
+        }
+        .login-box {
+            width: 420px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 18px;
+            padding: 2rem;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 0 25px rgba(0,0,0,0.3);
+        }
+        .login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d7e8ff;
+            margin-bottom: 1rem;
+        }
+        input {
+            width: 100%;
+            padding: .9rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border: none;
+            outline: none;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 1rem;
+        }
+        .btn-login {
+            width: 100%;
+            padding: .9rem;
+            color: white;
+            background: linear-gradient(90deg, #00d4ff, #5b00ff);
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+        .btn-login:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 12px rgba(0,255,255,0.4);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-box">
+        <div class="login-title">AI Matcher</div>
+
+        <form id="loginForm" action="/login" method="post">
+    <input type="email" name="username" id="username" placeholder="Enter Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+
+    <button class="btn-login" type="submit">Sign in</button>
+</form>
+
+    </div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", ()=>{
+
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value.trim();
+
+    // store locally just like your logic — unchanged
+    localStorage.setItem("ai_user", user);
+    localStorage.setItem("ai_pass", pass);
+
+});
+</script>
+
+    
+
+</body>
+</html>

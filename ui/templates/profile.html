@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Profile — AI Matcher</title>
+  <link rel="stylesheet" href="/static/dashboard.css">
+</head>
+
+<body class="bg-shell">
+  <div class="app-grid">
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidenav">
+      <div class="nav-brand">
+        <div class="logo">AI</div>
+        <div>
+          <div class="brand-title">AI Matcher</div>
+          <div class="brand-sub">Resume — Job Insight</div>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="/" class="nav-item">Dashboard</a>
+        <a href="/profile" class="nav-item active">Profile</a>
+        <a href="/reports" class="nav-item">Job Reports</a>
+        <a href="/resume-enhancer" class="nav-item">Resume Enhancer</a>
+        <a href="/market-insights" class="nav-item">Market Insights</a>
+        <a href="/settings" class="nav-item">Settings</a>
+        <a href="/help" class="nav-item">Help Center</a>
+        <a href="#" id="logoutBtn" class="nav-item logout">Logout</a>
+      </nav>
+
+      <div class="nav-footer">
+        <small class="muted">Logged in as</small>
+        <div id="navUser" class="nav-user">guest</div>
+      </div>
+    </aside>
+
+    <!-- Main Profile Section -->
+    <main class="main-col">
+      <div class="padded">
+        <h1>Profile</h1>
+
+        <div class="profile-card">
+          <label>Full name</label>
+          <input id="fullName" />
+
+          <label>Role</label>
+          <input id="role" placeholder="e.g. AI/ML Engineer"/>
+
+          <label>Bio</label>
+          <textarea id="bio" rows="5"></textarea>
+
+          <div style="margin-top:10px;">
+            <button id="saveProfile" class="btn btn-primary">Save Profile</button>
+            <button id="back" class="btn" style="margin-left:10px;">Back to Dashboard</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+<script>
+  document.getElementById("navUser").textContent = localStorage.getItem("ai_matcher_user") || "guest";
+
+  document.getElementById("logoutBtn").onclick = () => {
+      localStorage.removeItem("ai_matcher_user");
+      window.location.href = "/login";
+  };
+
+  document.getElementById("fullName").value = localStorage.getItem("ai_matcher_user") || "";
+  document.getElementById("bio").value = localStorage.getItem("ai_matcher_bio") || "";
+  document.getElementById("role").value = localStorage.getItem("ai_matcher_role") || "";
+
+  document.getElementById("saveProfile").onclick = () => {
+      localStorage.setItem("ai_matcher_user", document.getElementById("fullName").value);
+      localStorage.setItem("ai_matcher_bio", document.getElementById("bio").value);
+      localStorage.setItem("ai_matcher_role", document.getElementById("role").value);
+      alert("Profile saved (Local only)");
+  };
+
+  document.getElementById("back").onclick = () => location.href = "/";
+</script>
+
+<script>
+  if(localStorage.getItem("ai_theme")==="light"){ document.documentElement.classList.add("light-mode"); }
+</script>
+
+</body>
+</html>
